@@ -1,0 +1,24 @@
+* Installation de TuioServerModule.
+
+  ajout de la librairie oscpack
+		Rem : La version presente ici a été modifié voir bug.txt
+    $ make
+    $ make install
+	>  SUCCESS! oscpack has been installed in /usr/local/lib and /usr/local/include/ospack/
+    $ ldconfig
+
+   ajout de la librairie TuioServer
+    $ make
+    $make install
+
+
+  ajout du module TuioServerModule. Ce dernier sera directement appeler en python
+    $ python setupTuioServerModule.py build   (pas obligatoire)
+    $ python setupTuioServerModule.py install (ajouter sudo pr pouvoir copier la librairie dans /usr/local/lib/pythonX.X/dist-packages)
+
+normalement vous pouvez faire un "import TuioServerModule" dans l'interpreteur python
+
+* Utilisation de TuioServerModule.
+
+voir TuioServerModule.cpp
+modifier à convenance

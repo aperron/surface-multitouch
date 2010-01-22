@@ -1,0 +1,28 @@
+### Premier pas ###
+Avant de lancer fingerTracker.py il faut installer les librairies suivantes :
+python-opencv  python-xlib  ( par ex, ss Ubuntu: $ sudo apt-get install python-opencv python-xlib )
+
+puis lancer via $ python fingerTracker.py (-h pour l'aide)
+
+### petite explication ###
+fingerTracker utilise la lib OpenCV pour traiter les images de la camera.
+Elle peut utiliser les coordonnées des doigts extrapolées soit via Xlib, qui discute directement avec le serveur X, 
+soit via le protocole TUIO (à installer, voir le dossier TuioServerModule), qui envoie les infos en UDP. 
+Pour ce dernier le résultat est visualisable dans un client, il en existe beaucoup librement telechargeable sur le net.
+
+### personnalisation du code ###
+pour ça il faut mettre le nez dans le code cf : fingerTracker.py  -- traitement video et appelle des fonctions utilisant les coordonnees des doigts
+						ControlPeriph.py  -- controle de la souris via Xlib (un seul pointeur, pour l'instant cf:extension MPX dans Xorg)
+						TuioServerModule.cpp  -- envoie des donnees par Tuio ( cf : client Pymt)
+
+### hierarchie ####
+
+fingertracker
+  |_Opencv
+
+  |_ ControlPeriph
+      |_ Xlib
+
+  |_TuioServerModule
+      |_ TuioServer
+	  |_ oscpack
