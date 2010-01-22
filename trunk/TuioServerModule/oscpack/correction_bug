@@ -1,0 +1,76 @@
+copie de la page : http://www.multigesture.net/articles/touchlib-compiling-instructions-fedora-core-9/
+
+Touchlib compiling instructions (Fedora Core 9)
+Hardware:
+ A linux compatible webcam (USB or a Firewire)
+Software:
+ Fedora Core 9 (i386)
+ Also compatible with Fedora Core 10 (i386)
+Installation instructions:
+I’m asuming you have a clean installation of Fedora Core 9 (with Software Development packages) installed.
+First install all dependencies:
+ # su -
+ # yum install cmake svn opencv opencv-devel freeglut freeglut-devel fftw2 fftw2-devel libXmu libXmu-devel
+ # exit
+Now to install osc, checkout the latest version on the SVN:
+ # cd ~
+ # mkdir multitouch
+ # cd multitouch
+ # mkdir oscpack
+
+
+
+ # cd oscpack
+ # svn co https://www.smartelectronix.com:9000/repos/osc/oscpack/trunk/ .
+ (or you could get the source oscpack_1_0_2.zip)Unfortuntately rev. 76 of oscpack is not compatible with gcc 4.3. Before running make it is required to make some fixes in the sourcecode.
+Use your favorite editor and edit the following files:
+tests/OscUnitTests.cpp
+ - add #include <cstring>
+osc/OscPrintReceivedElements.cpp
+ - add #include <cstring>
+tests/OscSendTests.cpp
+ - add #include <cstdlib>
+tests/OscReceiveTest.cpp
+ - add #include <cstdlib>
+examples/OscDump.cpp
+ - add #include <cstring>
+ - add #include <cstdlib>
+
+
+
+Next type the following commands:
+# cd oscpack/
+ # make
+ # su -
+ # cd /home/username/multitouch/oscpack
+ # make install
+ # exit
+Now compile touchlib:
+ # cd /home/username/multitouch
+ # mkdir touchlib
+ # cd touchlib
+ # svn checkout http://touchlib.googlecode.com/svn/trunk/ .
+ # cmake . (or “ccmake .” if you want a GUI)
+ # make
+Touchlib should now be ready to use.
+More information:
+ http://gcc.gnu.org/gcc-4.3/porting_to.html
+Known bugs:
+ Due a problem with the OpenCV library in Linux, Touchlib might crash after a few minutes.
+A fix for rev.393 is available here.
+ A mirror to the file: Touchlib race condition fix rev.393
+(old)
+ A fix for rev.90 is available in here.
+ A mirror to the file: Touchlib race condition fix rev.90
+(Optional) Import the touchlib project in Eclipse (3.4+ Ganymeade):
+Open up a console and go to the touchlib directory
+Type:
+ # cmake -G”Eclipse CDT4 – Unix Makefiles” .
+Two new files should be added to the directory (.project and .cproject).
+Launch Eclipse.
+Import the project using File -> Import…
+Select General -> Existing projects into workspace.
+Browse to your touchlib directory.
+After selecting the directory, the project should be visible in the overview.
+Keep “Copy projects into workspace” unchecked.
+Done! 
